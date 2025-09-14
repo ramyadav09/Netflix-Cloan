@@ -1,9 +1,27 @@
 import React from "react";
 import Header from "./Header";
-import { useState } from "react";
+import { useState, useRef } from "react";
+import { checkValidData } from "../utils/Validate";
 
 const Login = () => {
   const [isSignInForm, setIsSignInForm] = useState(true);
+  const email = useRef(null);
+  const password = useRef(null);
+  const fullName = useRef(null);
+  const [errorMessage, setErrorMessage] = useState(null);
+
+  const handleButtonClick = () => {
+    console.log(email.current.value);
+    console.log(password.current.value);
+    const message = checkValidData(
+      email.current.value,
+      password.current.value,
+      fullName.current.value
+    );
+    setErrorMessage(message);
+    console.log(message);
+  };
+
   const toggleSignInForm = () => {
     setIsSignInForm(!isSignInForm);
   };
@@ -16,29 +34,39 @@ const Login = () => {
           alt="Background"
         />
       </div>
-      <form className="absolute text-white w-[35%] m-3 space-y-4 flex flex-col  p-12 bg-black/80 my-32 mx-auto left-0 right-0 rounded-md">
+      <form
+        onSubmit={(e) => e.preventDefault()}
+        className="absolute text-white w-[35%] m-3 space-y-4 flex flex-col  p-12 bg-black/80 my-32 mx-auto left-0 right-0 rounded-md"
+      >
         <h2 className="font-bold text-4xl">
           {isSignInForm ? "Sign In" : "Sign Up"}
         </h2>
         {/* if signinform is false then only work */}
         {!isSignInForm && (
           <input
+            ref={fullName}
             className="bg-[#1c2634] rounded-sm px-3 py-3 border font-xl font-semibold text-white"
             type="text"
             placeholder="Full Name"
           />
         )}
         <input
+          ref={email}
           className="bg-[#1c2634] rounded-sm px-3 py-3 border font-xl font-semibold text-white"
           type="text"
           placeholder="Email or Phone"
         />
         <input
+          ref={password}
           className="bg-[#1c2634] rounded-sm px-3 py-3 border font-xl font-semibold text-white"
           type="password"
           placeholder="Password"
         />
-        <button className="py-2 cursor-pointer rounded-sm bg-red-700 text-white font-semibold text-xl hover:bg-red-800 transition">
+        <p className="text-red-700 font-semibold">{errorMessage}</p>
+        <button
+          onClick={handleButtonClick}
+          className="py-2 cursor-pointer rounded-sm bg-red-700 text-white font-semibold text-xl hover:bg-red-800 transition"
+        >
           {isSignInForm ? "Sign In" : "Sign Up"}
         </button>
         <div className="flex justify-center font-semibold font-4xl">
@@ -47,9 +75,9 @@ const Login = () => {
         <button className="bg-gray-500/50 cursor-pointer text-semibold text-lg  hover:bg-gray-500/60 py-2">
           Use a sign-in code
         </button>
-        <button className="underline cursor-pointer py-2 text-semibold text-lg">
+        {/* <button className="underline cursor-pointer py-2 text-semibold text-lg">
           Forgot password?
-        </button>{" "}
+        </button>{" "} */}
         <button
           type="button"
           onClick={toggleSignInForm}
