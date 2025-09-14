@@ -1,23 +1,12 @@
-import Navbar from "./components/Navbar";
-import Browse from "./components/Browse";
 import Body from "./components/Body";
-import Login from "./components/Login";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { Provider } from "react-redux";
+import appStore from "./utils/appStore";
+
 function App() {
-  const appRouter = createBrowserRouter([
-    {
-      path: "/",
-      element: <Login />,
-    },
-    {
-      path: "/browse",
-      element: <Browse />,
-    },
-  ]);
   return (
-    <div>
-      <RouterProvider router={appRouter} />
-    </div>
+    <Provider store={appStore}>
+      <Body />
+    </Provider>
   );
 }
 

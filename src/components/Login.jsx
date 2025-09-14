@@ -2,6 +2,16 @@ import React from "react";
 import Header from "./Header";
 import { useState, useRef } from "react";
 import { checkValidData } from "../utils/Validate";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  updateProfile,
+} from "firebase/auth";
+import { auth } from "../utils/Firebase";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addUser } from "../utils/userSlice";
 
 const Login = () => {
   const [isSignInForm, setIsSignInForm] = useState(true);
@@ -9,6 +19,9 @@ const Login = () => {
   const password = useRef(null);
   const fullName = useRef(null);
   const [errorMessage, setErrorMessage] = useState(null);
+  const dispatch = useDispatch();
+
+  const navigate = useNavigate();
 
   const handleButtonClick = () => {
     console.log(email.current.value);
@@ -16,10 +29,69 @@ const Login = () => {
     const message = checkValidData(
       email.current.value,
       password.current.value,
-      fullName.current.value
+      !isSignInForm ? fullName.current?.value : null
     );
     setErrorMessage(message);
-    console.log(message);
+    // console.log(message);
+
+    if (message) return;
+    if (!isSignInForm) {
+      createUserWithEmailAndPassword(
+        auth,
+        email.current.value,
+        password.current.value
+      )
+        .then((userCredential) => {
+          const user = userCredential.user;
+
+          return updateProfile(user, {
+            displayName: fullName.current.value,
+            photoURL:
+              "https://avatars.githubusercontent.com/u/145370048?s=48&v=4",
+          });
+        })
+        .catch((error) => {
+          setErrorMessage(error.message);
+        })
+        .then(() => {
+          // console.log("User profile updated");
+          const { uid, email, displayName, photoURL } = auth.currentUser; //update the value of sign in auth-info
+          dispatch(
+            addUser({
+              uid: uid,
+              email: email,
+              displayName: displayName,
+              photoURL: photoURL,
+            })
+          );
+          navigate("/browse");
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          setErrorMessage(errorCode + "-" + errorMessage);
+          // ..
+        });
+    } else {
+      signInWithEmailAndPassword(
+        auth,
+        email.current.value,
+        password.current.value
+      )
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+
+          // console.log(user);
+          // ...
+          navigate("/browse");
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          setErrorMessage(errorCode + "-" + errorMessage);
+        });
+    }
   };
 
   const toggleSignInForm = () => {
@@ -45,20 +117,20 @@ const Login = () => {
         {!isSignInForm && (
           <input
             ref={fullName}
-            className="bg-[#1c2634] rounded-sm px-3 py-3 border font-xl font-semibold text-white"
+            className="bg-[#1c2634] rounded-sm px-3 py-3 border font-xl outline-blue-500 font-semibold text-white"
             type="text"
             placeholder="Full Name"
           />
         )}
         <input
           ref={email}
-          className="bg-[#1c2634] rounded-sm px-3 py-3 border font-xl font-semibold text-white"
+          className="bg-[#1c2634] rounded-sm px-3 py-3 border font-xl outline-blue-500 font-semibold text-white"
           type="text"
           placeholder="Email or Phone"
         />
         <input
           ref={password}
-          className="bg-[#1c2634] rounded-sm px-3 py-3 border font-xl font-semibold text-white"
+          className="bg-[#1c2634] rounded-sm px-3 py-3 border font-xl outline-blue-500 font-semibold text-white"
           type="password"
           placeholder="Password"
         />

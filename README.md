@@ -3,7 +3,25 @@
 
   -Create React App
   -Configured TailwindCSS
-  -
+  -Header
+  -Routing of App
+  -Login Form
+  -Sign up Form
+  -Form Validation
+  -useRef Hook
+  -Firebase Setup
+  -Deploying our app to production
+  -Create SignUp User Account
+  -Implement Sign In user Api
+  -Created Redux Store with userslice
+  -Implemented Sign Out 
+  -Update Profile
+  -Fetch movie from TMDB Movies
+
+
+write navigate in copy 3 hr:16min
+
+
 
   # Features
   -Login/Sign UP
