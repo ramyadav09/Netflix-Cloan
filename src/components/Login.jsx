@@ -9,9 +9,9 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { auth } from "../utils/Firebase";
-import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
+import { USER_AVATAR } from "../utils/constants";
 
 const Login = () => {
   const [isSignInForm, setIsSignInForm] = useState(true);
@@ -21,20 +21,16 @@ const Login = () => {
   const [errorMessage, setErrorMessage] = useState(null);
   const dispatch = useDispatch();
 
-  const navigate = useNavigate();
-
   const handleButtonClick = () => {
-    console.log(email.current.value);
-    console.log(password.current.value);
     const message = checkValidData(
       email.current.value,
       password.current.value,
       !isSignInForm ? fullName.current?.value : null
     );
     setErrorMessage(message);
-    // console.log(message);
 
     if (message) return;
+
     if (!isSignInForm) {
       createUserWithEmailAndPassword(
         auth,
@@ -43,19 +39,16 @@ const Login = () => {
       )
         .then((userCredential) => {
           const user = userCredential.user;
-
           return updateProfile(user, {
             displayName: fullName.current.value,
-            photoURL:
-              "https://avatars.githubusercontent.com/u/145370048?s=48&v=4",
+            photoURL: USER_AVATAR,
           });
         })
         .catch((error) => {
           setErrorMessage(error.message);
         })
         .then(() => {
-          // console.log("User profile updated");
-          const { uid, email, displayName, photoURL } = auth.currentUser; //update the value of sign in auth-info
+          const { uid, email, displayName, photoURL } = auth.currentUser;
           dispatch(
             addUser({
               uid: uid,
@@ -64,13 +57,11 @@ const Login = () => {
               photoURL: photoURL,
             })
           );
-          navigate("/browse");
         })
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
           setErrorMessage(errorCode + "-" + errorMessage);
-          // ..
         });
     } else {
       signInWithEmailAndPassword(
@@ -79,12 +70,7 @@ const Login = () => {
         password.current.value
       )
         .then((userCredential) => {
-          // Signed in
-          const user = userCredential.user;
-
-          // console.log(user);
-          // ...
-          navigate("/browse");
+          console.log("User signed in successfully");
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -97,6 +83,7 @@ const Login = () => {
   const toggleSignInForm = () => {
     setIsSignInForm(!isSignInForm);
   };
+
   return (
     <div>
       <Header />
@@ -113,7 +100,6 @@ const Login = () => {
         <h2 className="font-bold text-4xl">
           {isSignInForm ? "Sign In" : "Sign Up"}
         </h2>
-        {/* if signinform is false then only work */}
         {!isSignInForm && (
           <input
             ref={fullName}
@@ -138,7 +124,7 @@ const Login = () => {
         <button
           onClick={handleButtonClick}
           className="py-2 cursor-pointer rounded-sm bg-red-700 text-white font-semibold text-xl hover:bg-red-800 transition"
-        >
+        > 
           {isSignInForm ? "Sign In" : "Sign Up"}
         </button>
         <div className="flex justify-center font-semibold font-4xl">
@@ -147,20 +133,19 @@ const Login = () => {
         <button className="bg-gray-500/50 cursor-pointer text-semibold text-lg  hover:bg-gray-500/60 py-2">
           Use a sign-in code
         </button>
-        {/* <button className="underline cursor-pointer py-2 text-semibold text-lg">
-          Forgot password?
-        </button>{" "} */}
-        <button
-          type="button"
-          onClick={toggleSignInForm}
-          className="underline cursor-pointer py-2 text-semibold text-lg"
-        >
-          {isSignInForm
-            ? "New to Netflix?Sign Up now."
-            : "Already registered?Sign In now."}
-        </button>
+        <div className="flex space-x-1 py-2 text-semibold text-lg">
+          <p>{isSignInForm ? "New to Netflix?" : "Already registered? "}</p>
+          <button
+            type="button"
+            onClick={toggleSignInForm}
+            className="underline cursor-pointer"
+          >
+            {isSignInForm ? "Sign Up now." : "Sign In now."}
+          </button>
+        </div>
       </form>
     </div>
   );
 };
+
 export default Login;
