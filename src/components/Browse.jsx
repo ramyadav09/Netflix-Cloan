@@ -5,15 +5,23 @@ import js from "@eslint/js";
 import { useDispatch } from "react-redux";
 import MainContainer from "./MainContainer";
 import SecondaryContainer from "./SecondaryContainer";
+import usePopularMovies from "../hooks/usePopularMovies";
+import useTopRatedMovies from "../hooks/useTopRatedMovies";
+import useUpcomingMovies from "../hooks/useUpcomingMovies";
 
 const Browse = () => {
   useNowPlayingMovies();
+  usePopularMovies();
+  useTopRatedMovies();
+  useUpcomingMovies();
 
   return (
-    <div>
+    <div className="overflow-y-scroll scrollbar-hide">
       <Header />
       <MainContainer />
-      <SecondaryContainer />
+      <div className="relative z-10 bg-black mt-[100vh]">
+        <SecondaryContainer />
+      </div>
     </div>
   );
 };

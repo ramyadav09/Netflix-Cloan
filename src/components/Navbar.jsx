@@ -17,7 +17,7 @@ const Navbar = () => {
   };
   
   return (
-    <div className="absolute flex justify-between items-center bg-gradient-to-b w-full z-50 px-8 py-4 from-black via-black/80 to-transparent backdrop-blur-sm">
+    <div className="fixed flex justify-between items-center bg-gradient-to-b w-full z-50 px-8 py-4 from-black via-black/80 to-transparent backdrop-blur-sm top-0">
       <img className="w-44 h-auto transition-transform hover:scale-105" src={NET_LOGO} alt="Logo" />
       {user && (
         <div className="flex items-center space-x-4">

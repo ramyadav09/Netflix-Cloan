@@ -12,12 +12,11 @@ const VideoBackground = ({ movieId }) => {
       <div className="relative w-full h-full">
         {trailerVideo?.key ? (
           <iframe
-            key={`${trailerVideo.key}-${isMuted}`}
             className="absolute top-0 left-0 w-full h-full scale-125 object-cover"
             src={
               "https://www.youtube.com/embed/" +
               trailerVideo.key +
-              `?autoplay=1&mute=${isMuted ? 1 : 0}&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&loop=1&playlist=` +
+              `?autoplay=1&mute=1&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&loop=1&playlist=` +
               trailerVideo.key
             }
             title="YouTube video player"
