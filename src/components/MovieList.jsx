@@ -1,5 +1,6 @@
 import React, { useRef } from "react";
 import MovieCard from "./MovieCard";
+import { Link } from "react-router-dom";
 
 const MovieList = ({ title, movie }) => {
   const scrollRef = useRef(null);
@@ -11,19 +12,22 @@ const MovieList = ({ title, movie }) => {
 
   return (
     <div className="pl-6">
-      <h1 className="text-3xl py-3 text-white ">{title}</h1>
-      <div 
+      <h1 className="text-3xl py-3 text-white drop-shadow-lg">{title}</h1>
+      <div
         ref={scrollRef}
         className="flex overflow-x-scroll scrollbar-hide"
         onWheel={handleWheel}
       >
         <div className="flex space-x-3">
           {movie?.map((movie) => (
-            <MovieCard
-              key={movie.id}
-              title={title}
-              poster_path={movie.poster_path}
-            />
+            <Link to={"/browse/" + movie.id} key={movie.id}>
+              <MovieCard
+                key={movie.id}
+                movieId={movie.id}
+                title={movie.title}
+                poster_path={movie.poster_path}
+              />
+            </Link>
           ))}
         </div>
       </div>

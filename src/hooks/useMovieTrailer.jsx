@@ -19,7 +19,6 @@ const useMovieTrailer = (movieId) => {
     );
     const trailer = filteredDATA.length ? filteredDATA[0] : json.results[0];
     dispatch(addTrailerVideo(trailer));
-    // console.log(trailer.key);
     // setTrailerKey(trailer.key);--->redux is used
   };
 

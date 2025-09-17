@@ -11,7 +11,7 @@ import {
 import { auth } from "../utils/Firebase";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
-import { USER_AVATAR } from "../utils/constants";
+import { BG_URL, USER_AVATAR } from "../utils/constants";
 
 const Login = () => {
   const [isSignInForm, setIsSignInForm] = useState(true);
@@ -70,7 +70,6 @@ const Login = () => {
         password.current.value
       )
         .then((userCredential) => {
-          console.log("User signed in successfully");
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -88,10 +87,7 @@ const Login = () => {
     <div>
       <Header />
       <div className="absolute">
-        <img
-          src="https://assets.nflxext.com/ffe/siteui/vlv3/0b0dad79-ad4d-42b7-b779-8518da389976/web/IN-en-20250908-TRIFECTA-perspective_0647b106-80e1-4d25-9649-63099752b49a_large.jpg"
-          alt="Background"
-        />
+        <img src={BG_URL} alt="Background" />
       </div>
       <form
         onSubmit={(e) => e.preventDefault()}
@@ -124,7 +120,7 @@ const Login = () => {
         <button
           onClick={handleButtonClick}
           className="py-2 cursor-pointer rounded-sm bg-red-700 text-white font-semibold text-xl hover:bg-red-800 transition"
-        > 
+        >
           {isSignInForm ? "Sign In" : "Sign Up"}
         </button>
         <div className="flex justify-center font-semibold font-4xl">
