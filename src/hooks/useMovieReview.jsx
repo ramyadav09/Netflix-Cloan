@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
-import { API_OPTION } from "../utils/constants";
 import { addMovieReview } from "../utils/movieReviewSlice";
 import { useEffect } from "react";
+import { API_OPTION } from "../utils/constants";
 const useMovieReview = (resId) => {
   const dispatch = useDispatch();
   const fetchReview = async (resId) => {
