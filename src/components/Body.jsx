@@ -2,12 +2,17 @@ import React from "react";
 import Login from "./Login";
 import Browse from "./Browse";
 import MovieReviewCard from "./MovieReviewCard";
+import Header from "./Header";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 const Body = () => {
   const appRouter = createBrowserRouter([
     {
       path: "/",
+      element: <Login />,
+    },
+    {
+      path: "/login",
       element: <Login />,
     },
     {
@@ -21,7 +26,7 @@ const Body = () => {
   ]);
 
   return (
-    <div>
+    <div className="b-black">
       <RouterProvider router={appRouter} />
     </div>
   );

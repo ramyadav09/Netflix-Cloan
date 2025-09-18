@@ -60,20 +60,21 @@ const Navbar = () => {
             <span className="flex items-center gap-0.5 xs:gap-1 sm:gap-1.5 md:gap-2">
               <svg
                 className="w-2.5 h-2.5 xs:w-3 xs:h-3 sm:w-3.5 sm:h-3.5 md:w-4 md:h-4"
-                fill="currentColor"
+                fill="none"
+                stroke="currentColor"
                 viewBox="0 0 24 24"
               >
-                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
               <span className="text-xs xs:text-xs sm:text-sm md:text-sm hidden xs:inline">
                 {showGptSearch ? "Home" : "GPT"}
               </span>
               <span className="text-xs xs:text-xs sm:text-sm md:text-sm hidden sm:inline">
-                {showGptSearch ? "HomePage" : "GPT Search"}
+                {showGptSearch ? "HomePage" : "Search"}
               </span>
             </span>
           </button>
-          <div className="flex items-center space-x-1 xs:space-x-2 sm:space-x-2 md:space-x-3 bg-black/30 rounded-full px-1 xs:px-2 sm:px-3 md:px-4 py-0.5 xs:py-1 sm:py-1.5 md:py-2 backdrop-blur-md border border-gray-700/50 hover:bg-black/50 transition-all duration-300">
+         
             <img
               className="w-5 h-5 xs:w-6 xs:h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 rounded-full ring-1 xs:ring-2 ring-red-500/50 hover:ring-red-500 transition-all duration-300"
               src={
@@ -82,10 +83,6 @@ const Navbar = () => {
               }
               alt="Profile"
             />
-            <span className="text-white text-xs xs:text-xs sm:text-sm md:text-sm font-medium hidden sm:block">
-              {user?.displayName || "User"}
-            </span>
-          </div>
           <button
             className="bg-red-600 hover:bg-red-700 text-white font-medium px-1 xs:px-2 sm:px-3 md:px-4 py-0.5 xs:py-1 sm:py-1.5 md:py-2 text-xs xs:text-xs sm:text-sm md:text-sm rounded-lg transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-lg hover:shadow-red-500/25"
             onClick={handleSignOut}

@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import VideoTitle from "./VideoTitle";
-import VideoBackground from "./VideoBackground";
+import VideoPlayer from "./VideoPlayer";
 
 const MainContainer = () => {
   const movie = useSelector((store) => store.movie?.nowPlayingMovies);
@@ -10,7 +10,7 @@ const MainContainer = () => {
   return (
     <div className="">
       <VideoTitle title={title} overview={overview} />
-      <VideoBackground movieId={id} />
+      <VideoPlayer movieId={id} isFullScreen={true} />
     </div>
   );
 };

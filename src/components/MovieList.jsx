@@ -11,14 +11,16 @@ const MovieList = ({ title, movie }) => {
   };
 
   return (
-    <div className="pl-6">
-      <h1 className="text-3xl py-3 text-white drop-shadow-lg">{title}</h1>
+    <div className=" pl-6 z-90 ">
+      <h1 className="text-3xl py-3 bg-transparent text-white drop-shadow-lg">
+        {title}
+      </h1>
       <div
         ref={scrollRef}
         className="flex overflow-x-scroll scrollbar-hide"
         onWheel={handleWheel}
       >
-        <div className="flex space-x-3">
+        <div className="flex space-x-4">
           {movie?.map((movie) => (
             <Link to={"/browse/" + movie.id} key={movie.id}>
               <MovieCard

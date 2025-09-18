@@ -24,7 +24,7 @@ const Browse = () => {
       ) : (
         <>
           <MainContainer />
-          <div className="relative z-10 bg-transparent mt-[100vh]">
+          <div className="relative z-10 bg-gradient-to-t from-black via-transparent to-transparent mt-[100vh]">
             <SecondaryContainer />
           </div>
         </>
