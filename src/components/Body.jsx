@@ -23,7 +23,9 @@ const Body = () => {
       path: "/browse/:resId",
       element: <MovieReviewCard />,
     },
-  ]);
+  ], {
+    basename: "/Netflix-Cloan"
+  });
 
   return (
     <div className="b-black">
