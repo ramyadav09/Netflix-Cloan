@@ -92,4 +92,5 @@
 - **Custom Hooks**: Reusable logic for API calls
 - **Responsive Design**: Mobile-first approach
 - **Performance**: Optimized rendering and lazy loading
-- **Modern UI**: Glassmorphism and gradient effects
+- **Modern UI**: Glassmorphism and gradient effectsGPT
+>>>>>>> 68d40fd558176ac86397f09069470a6e0908886c
