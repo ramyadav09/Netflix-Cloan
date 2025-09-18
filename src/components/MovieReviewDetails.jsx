@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
-import { IMG_CDN_URL } from "../utils/constants.jsx";
+import { IMG_CDN_URL } from "../utils/constants";
 import useMovieTrailer from "../hooks/useMovieTrailer";
 // import { useMovieReview } from "../utils/movieReviewSlice";
 
