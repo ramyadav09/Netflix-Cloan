@@ -1,19 +1,25 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-
 import { IMG_CDN_URL } from "../utils/constants";
 import useMovieTrailer from "../hooks/useMovieTrailer";
 // import { useMovieReview } from "../utils/movieReviewSlice";
+import { addToList, removeFromList } from "../utils/listSlice";
 
 const MovieReviewDetails = ({ resId, handleTrailer }) => {
   useMovieTrailer(resId);
+
   const [isTrailer, setIsTrailer] = useState(false);
+
   const { nowPlayingMovies, popularMovies, topRatedMovies, upcomingMovies } =
     useSelector((store) => store.movie);
   const searchResults = useSelector((store) => store.gpt.searchResults);
   const reviewResults = useSelector((store) => store.review.reviewId);
   // console.log(reviewResults);
+
+  const List = useSelector((store) => store.list.list);
+  // console.log(List.list);
+  const checkList = List.find((m) => String(m.id) === String(resId));
   // merge all movie arrays (filter out nulls first)
   const allMovies = [
     ...(nowPlayingMovies || []),
@@ -26,14 +32,25 @@ const MovieReviewDetails = ({ resId, handleTrailer }) => {
   // find movie by id
   const selectedMovie = allMovies.find((m) => String(m.id) === String(resId));
 
+  const handleWatchTrailer = () => {
+    handleTrailer(); // Call the prop function passed from parent
+    setIsTrailer(!isTrailer); // Toggle local state to update button text
+  };
+
   if (!selectedMovie) {
     return <p className="text-white">No movie found with id: {resId}</p>;
   }
 
   const { vote_average, poster_path, release_date, title, overview } =
     selectedMovie;
-  console.log(reviewResults?.results[0]);
-
+  const dispatch = useDispatch();
+  const listToggle = () => {
+    if (!checkList) {
+      dispatch(addToList(selectedMovie));
+    } else {
+      dispatch(removeFromList(selectedMovie));
+    }
+  };
   return (
     <div className="min-h-screen bg-black">
       {/* Hero Section */}
@@ -99,46 +116,47 @@ const MovieReviewDetails = ({ resId, handleTrailer }) => {
                     </h2>
                   </div>
                   <p className="text-lg sm:text-xl text-gray-200 leading-relaxed font-light max-w-2xl">
-                    {overview.length > 700
-                      ? overview.slice(0, 500) + "..."
-                      : overview}
+                    {overview
+                      ? overview.length > 500
+                        ? `${overview.slice(0, 500)}...`
+                        : overview
+                      : "No overview available."}
                   </p>
                 </div>
                 <div className="text-white">
-                  {reviewResults?.results[0]?.author && (
+                  {reviewResults?.results?.[0]?.author && (
                     <div>
                       <h3 className="text-xl font-semibold ">
-                        {reviewResults?.results[0]?.author}
+                        {reviewResults.results[0].author}
                       </h3>
                       <p>Author</p>
                     </div>
                   )}
-
-                  <div>
-                    <h3></h3>
-                  </div>
-                  {/* <div><h3></h3></div> */}
                 </div>
                 {/* Action Buttons */}
                 <div className="flex flex-col sm:flex-row gap-4 pt-6">
                   <button
-                    onClick={handleTrailer}
+                    onClick={handleWatchTrailer}
                     className="group flex items-center justify-center gap-3 bg-white text-black font-bold text-lg px-8 py-4 rounded-xl hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 shadow-2xl"
                   >
                     <svg className="w-6 h-6 fill-current" viewBox="0 0 24 24">
                       <path d="M8 5v14l11-7z" />
                     </svg>
-                    <span>
-                      {!isTrailer ? "Watch Trailer" : "Close Trailer"}
-                    </span>
+                    <span>{isTrailer ? "Close Trailer" : "Watch Trailer"}</span>
                   </button>
-
-                  <button className="group flex items-center justify-center gap-3 bg-gray-800/80 text-white font-bold text-lg px-8 py-4 rounded-xl hover:bg-gray-700/80 transition-all duration-300 transform hover:scale-105 backdrop-blur-md border border-white/20">
+                  (
+                  <button
+                    onClick={listToggle}
+                    className="group flex items-center justify-center gap-3 bg-gray-800/80 text-white font-bold text-lg px-8 py-4 rounded-xl hover:bg-gray-700/80 transition-all duration-300 transform hover:scale-105 backdrop-blur-md border border-white/20"
+                  >
                     <svg className="w-6 h-6 fill-current" viewBox="0 0 24 24">
                       <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
                     </svg>
-                    <span>Add to List</span>
+                    <span>
+                      {!checkList ? "Add to List" : "Remove from List"}
+                    </span>
                   </button>
+                  )
                 </div>
               </div>
             </div>

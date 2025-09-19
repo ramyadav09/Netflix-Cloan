@@ -23,7 +23,6 @@ const Header = () => {
             photoURL: photoURL,
           })
         );
-        navigate("/browse");
       } else {
         dispatch(removeUser());
         navigate("/login");

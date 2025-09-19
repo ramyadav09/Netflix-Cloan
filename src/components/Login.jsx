@@ -11,6 +11,7 @@ import {
 import { auth } from "../utils/Firebase";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
+import { useNavigate } from "react-router-dom";
 import { BG_URL, USER_AVATAR } from "../utils/constants";
 
 const Login = () => {
@@ -20,6 +21,7 @@ const Login = () => {
   const fullName = useRef(null);
   const [errorMessage, setErrorMessage] = useState(null);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleButtonClick = () => {
     const message = checkValidData(
@@ -57,6 +59,7 @@ const Login = () => {
               photoURL: photoURL,
             })
           );
+          navigate('/browse');
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -70,6 +73,7 @@ const Login = () => {
         password.current.value
       )
         .then((userCredential) => {
+          navigate('/browse');
         })
         .catch((error) => {
           const errorCode = error.code;

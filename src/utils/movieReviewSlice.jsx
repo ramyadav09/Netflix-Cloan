@@ -4,7 +4,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const movieReviewSlice = createSlice({
   name: "review",
   initialState: {
-    reviewId: null,
+    reviewId: { results: [] },
   },
   reducers: {
     addMovieReview: (state, action) => {

@@ -2,6 +2,7 @@ import React from "react";
 import Login from "./Login";
 import Browse from "./Browse";
 import MovieReviewCard from "./MovieReviewCard";
+import List from "./List";
 import Header from "./Header";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
@@ -22,6 +23,10 @@ const Body = () => {
     {
       path: "/browse/:resId",
       element: <MovieReviewCard />,
+    },
+    {
+      path: "/list",
+      element: <List />,
     },
   ]);
 
