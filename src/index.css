@@ -1,10 +1,13 @@
 @import "tailwindcss";
 
-/* Add to your global CSS */
+@theme {
+  --breakpoint-xs: 475px;
+}
+
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
 .scrollbar-hide {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }

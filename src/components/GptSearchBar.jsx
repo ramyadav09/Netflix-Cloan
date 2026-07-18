@@ -69,22 +69,22 @@ const GptSearchBar = () => {
   return (
     <div className="pt-[10%] pb-8 flex justify-center px-4">
       <form
-        className="w-full max-w-4xl flex flex-col md:flex-row gap-4 bg-black/80 backdrop-blur-md rounded-2xl p-6 shadow-2xl border border-gray-700/50"
+        className="w-full max-w-4xl flex flex-col md:flex-row gap-3 xs:gap-4 bg-black/80 backdrop-blur-md rounded-2xl p-4 xs:p-5 sm:p-6 shadow-2xl border border-gray-700/50"
         onSubmit={(e) => e.preventDefault()}
       >
         <input
           ref={searchText}
-          className="flex-1 bg-gray-900 text-white placeholder-gray-400 p-4 rounded-xl border border-gray-600 focus:border-red-500 focus:outline-none focus:ring-2 focus:ring-red-500/50 transition-all duration-300"
+          className="flex-1 bg-gray-900 text-white placeholder-gray-400 p-3 xs:p-3.5 sm:p-4 rounded-xl border border-gray-600 focus:border-red-500 focus:outline-none focus:ring-2 focus:ring-red-500/50 transition-all duration-300"
           type="text"
           placeholder={lang[lanKey].gptPlaceHolder}
         />
         <button
-          className="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white font-bold py-4 px-8 rounded-xl transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-lg hover:shadow-red-500/25 min-w-[120px]"
+          className="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white font-bold py-3 xs:py-3.5 sm:py-4 px-5 xs:px-6 sm:px-8 rounded-xl transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-lg hover:shadow-red-500/25 min-w-[100px] xs:min-w-[120px]"
           onClick={handleSearch}
         >
           <span className="flex items-center justify-center gap-2">
             <svg
-              className="w-5 h-5"
+              className="w-4 h-4 xs:w-5 xs:h-5"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"

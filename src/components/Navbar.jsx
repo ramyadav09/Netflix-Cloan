@@ -105,8 +105,8 @@ const Navbar = () => {
         </Link>
         <img
           className="w-5 h-5 xs:w-6 xs:h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 rounded-full ring-1 xs:ring-2 ring-red-500/50 hover:ring-red-500 transition-all duration-300"
-          src="https://avatars.githubusercontent.com/u/145370048?s=48&v=4"
-          alt="Profile"
+          src=""
+          alt="P"
         />
       </div>
     </div>

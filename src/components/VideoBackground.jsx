@@ -12,7 +12,7 @@ const VideoBackground = ({ movieId }) => {
       <div className="relative w-full h-full">
         {trailerVideo?.key ? (
           <iframe
-            className="absolute top-0 left-0 w-full h-full scale-125 object-cover"
+            className="absolute top-0 left-0 w-full h-full scale-[1.35] xs:scale-125 object-cover"
             src={
               "https://www.youtube.com/embed/" +
               trailerVideo.key +
@@ -35,15 +35,15 @@ const VideoBackground = ({ movieId }) => {
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-black/30 pointer-events-none"></div>
         <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/20 to-transparent pointer-events-none"></div>
 
-        <div className="absolute bottom-8 right-8 z-30">
+        <div className="absolute bottom-4 xs:bottom-6 sm:bottom-8 right-4 xs:right-6 sm:right-8 z-30">
           {trailerVideo?.key && (
             <button
               onClick={() => setIsMuted(!isMuted)}
-              className="group bg-black/70 hover:bg-black/90 text-white p-5 rounded-full transition-all duration-500 backdrop-blur-xl border-2 border-white/20 hover:border-white/50 hover:scale-110 active:scale-95 shadow-2xl"
+              className="group bg-black/70 hover:bg-black/90 text-white p-2.5 xs:p-3 sm:p-4 md:p-5 rounded-full transition-all duration-500 backdrop-blur-xl border-2 border-white/20 hover:border-white/50 hover:scale-110 active:scale-95 shadow-2xl"
             >
               {isMuted ? (
                 <svg
-                  className="w-7 h-7 group-hover:scale-110 transition-transform"
+                  className="w-4 h-4 xs:w-5 xs:h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 group-hover:scale-110 transition-transform"
                   fill="currentColor"
                   viewBox="0 0 24 24"
                 >
@@ -51,7 +51,7 @@ const VideoBackground = ({ movieId }) => {
                 </svg>
               ) : (
                 <svg
-                  className="w-7 h-7 group-hover:scale-110 transition-transform"
+                  className="w-4 h-4 xs:w-5 xs:h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 group-hover:scale-110 transition-transform"
                   fill="currentColor"
                   viewBox="0 0 24 24"
                 >

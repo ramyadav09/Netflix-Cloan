@@ -19,7 +19,7 @@ const VideoPlayer = ({ movieId, isFullScreen = true, onClose }) => {
     <div className={containerClasses}>
       <div
         className={
-          isFullScreen ? "relative w-full h-full" : "w-3/5 h-96 relative"
+          isFullScreen ? "relative w-full h-full" : "w-full xs:w-4/5 sm:w-3/5 h-56 xs:h-64 sm:h-72 md:h-96 relative"
         }
       >
         {trailerVideo?.key ? (

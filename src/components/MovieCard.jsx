@@ -9,7 +9,7 @@ const MovieCard = ({ title, poster_path, type }) => {
       : `https://placehold.co/500x750/1a1a1a/white?text=${encodeURIComponent(title || 'No Poster')}`;
   
   return (
-    <div className="w-52 xs:w-36 sm:w-40 md:w-44 lg:w-48 flex-shrink-0 relative">
+    <div className="w-32 xs:w-36 sm:w-40 md:w-44 lg:w-48 flex-shrink-0 relative">
       {/* Type Badge */}
       {type && (
         <div className="absolute top-2 left-2 z-10">

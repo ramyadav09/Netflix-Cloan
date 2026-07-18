@@ -65,7 +65,7 @@ const MovieReviewDetails = ({ resId, handleTrailer }) => {
     <div className="min-h-screen bg-gradient-to-b from-gray-900 via-black to-gray-900">
       {/* Back Button */}
       <Link to={"/browse"}>
-        <button className="fixed top-6 right-6 z-50 bg-black/80 hover:bg-black text-white font-semibold px-6 py-3 rounded-lg backdrop-blur-md border border-white/20 hover:border-white/40 transition-all duration-300">
+        <button className="fixed top-4 xs:top-6 right-4 xs:right-6 z-50 bg-black/80 hover:bg-black text-white font-semibold px-3 xs:px-4 sm:px-6 py-2 xs:py-2.5 sm:py-3 text-sm xs:text-base rounded-lg backdrop-blur-md border border-white/20 hover:border-white/40 transition-all duration-300">
           ← Back
         </button>
       </Link>
@@ -77,7 +77,7 @@ const MovieReviewDetails = ({ resId, handleTrailer }) => {
             {/* Movie Poster */}
             <div className="flex-shrink-0 mx-auto lg:mx-0">
               <img
-                className="w-64 sm:w-80 lg:w-96 h-auto rounded-2xl shadow-2xl border-4 border-white/10"
+                className="w-48 xs:w-56 sm:w-64 md:w-80 lg:w-96 h-auto rounded-2xl shadow-2xl border-4 border-white/10"
                 src={posterUrl}
                 alt={title}
                 onError={(e) => {

@@ -19,7 +19,7 @@ const MovieReviewCard = () => {
     <div className="relative ">
       <MovieReviewDetails resId={resId} handleTrailer={handleTrailerPlaying} />
       {isTrailer && (
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4/5 h-96 z-10">
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[95vw] xs:w-[90vw] sm:w-4/5 h-64 xs:h-72 sm:h-80 md:h-96 z-10">
           <VideoPlayer
             movieId={resId}
             isFullScreen={false}

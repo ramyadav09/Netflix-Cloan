@@ -20,7 +20,7 @@ const ListCard = ({ movie }) => {
         <img
           src={posterUrl}
           alt={movie.title}
-          className="w-full h-64 object-cover"
+          className="w-full h-48 xs:h-56 sm:h-64 object-cover"
           onError={(e) => {
             e.target.src = 'https://via.placeholder.com/500x750?text=No+Poster';
           }}
