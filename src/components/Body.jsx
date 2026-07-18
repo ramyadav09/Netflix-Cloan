@@ -1,5 +1,4 @@
 import React from "react";
-import Login from "./Login";
 import Browse from "./Browse";
 import MovieReviewCard from "./movieReviewCard";
 import List from "./List";
@@ -10,11 +9,7 @@ const Body = () => {
   const appRouter = createBrowserRouter([
     {
       path: "/",
-      element: <Login />,
-    },
-    {
-      path: "/login",
-      element: <Login />,
+      element: <Browse />,
     },
     {
       path: "/browse",

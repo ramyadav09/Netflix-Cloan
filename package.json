@@ -13,7 +13,6 @@
     "@openai/openai": "npm:@jsr/openai__openai@^5.20.3",
     "@tailwindcss/vite": "^4.1.11",
     "@reduxjs/toolkit": "^2.9.0",
-    "firebase": "^12.2.1",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-redux": "^9.2.0",
