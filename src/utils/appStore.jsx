@@ -5,6 +5,7 @@ import gptReducer from "./gptSlice";
 import configReducer from "./configSlice";
 import reviewReducer from "./movieReviewSlice";
 import listReducer from "./listSlice";
+import imdbReducer from "./imdbSlice";
 
 const appStore = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ const appStore = configureStore({
     config: configReducer,
     review: reviewReducer,
     list: listReducer,
+    imdb: imdbReducer,
   },
 });
 export default appStore;

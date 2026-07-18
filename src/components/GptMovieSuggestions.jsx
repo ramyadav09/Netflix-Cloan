@@ -14,15 +14,17 @@ const GptMovieSuggestions = () => {
           Search Results
         </h2>
         <div className="flex overflow-x-scroll scrollbar-hide">
-          {searchResults.map((movie) => (
-            <Link to={"/browse/" + movie.id} key={movie.id}>
-              <MovieCard
-                key={movie.id}
-                title={movie.title}
-                poster_path={movie.poster_path}
-              />
-            </Link>
-          ))}
+          <div className="flex space-x-6">
+            {searchResults.map((movie) => (
+              <Link to={"/browse/" + movie.id} key={movie.id}>
+                <MovieCard
+                  key={movie.id}
+                  title={movie.title}
+                  poster_path={movie.poster_path}
+                />
+              </Link>
+            ))}
+          </div>
         </div>
       </div>
     </div>

@@ -1,30 +1,32 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addTrailerVideo } from "../utils/movieSlice";
-import { API_OPTION } from "../utils/constants";
 import { useEffect } from "react";
 
 const useMovieTrailer = (movieId) => {
   const dispatch = useDispatch();
 
   const getMoviesVideo = async () => {
-    const data = await fetch(
-      "https://api.themoviedb.org/3/movie/" +
-        movieId +
-        "/videos?language=en-US",
-      API_OPTION
-    );
-    const json = await data.json();
-    const filteredDATA = json.results?.filter(
-      (video) => video.type === "Trailer"
-    );
-    const trailer = filteredDATA.length ? filteredDATA[0] : json.results[0];
-    dispatch(addTrailerVideo(trailer));
-    // setTrailerKey(trailer.key);--->redux is used
+    try {
+      // Since OMDb doesn't provide video data, we'll use YouTube search
+      // or you can integrate with YouTube Data API
+      // For now, we'll create a placeholder that opens YouTube search
+      const trailer = {
+        key: movieId, // Use movieId as placeholder
+        type: "Trailer",
+        site: "YouTube",
+        // This will be used to construct YouTube search URL in the component
+      };
+      dispatch(addTrailerVideo(trailer));
+    } catch (error) {
+      console.error("Error fetching movie trailer:", error);
+    }
   };
 
   useEffect(() => {
-    getMoviesVideo();
-  }, []);
+    if (movieId) {
+      getMoviesVideo();
+    }
+  }, [movieId]);
 };
 
 export default useMovieTrailer;

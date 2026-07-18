@@ -1,7 +1,6 @@
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { removeFromList } from "../utils/listSlice";
-import { IMG_CDN_URL } from "../utils/constants";
 
 const ListCard = ({ movie }) => {
   const dispatch = useDispatch();
@@ -10,13 +9,21 @@ const ListCard = ({ movie }) => {
     dispatch(removeFromList(movie.id));
   };
 
+  // Handle poster URL (could be OMDb full URL or TMDB path)
+  const posterUrl = movie.poster_path?.startsWith('http') 
+    ? movie.poster_path 
+    : `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
+
   return (
     <div className="relative group bg-gray-900 rounded-lg overflow-hidden hover:scale-105 transition-transform duration-300">
       <Link to={`/browse/${movie.id}`}>
         <img
-          src={IMG_CDN_URL + movie.poster_path}
+          src={posterUrl}
           alt={movie.title}
           className="w-full h-64 object-cover"
+          onError={(e) => {
+            e.target.src = 'https://via.placeholder.com/500x750?text=No+Poster';
+          }}
         />
       </Link>
       <button
@@ -30,7 +37,7 @@ const ListCard = ({ movie }) => {
           {movie.title}
         </h3>
         <p className="text-gray-400 text-xs">
-          {movie.release_date?.slice(0, 4)}
+          {movie.release_date?.slice(0, 4) || movie.release_date}
         </p>
       </div>
     </div>

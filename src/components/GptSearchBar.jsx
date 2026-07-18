@@ -1,8 +1,10 @@
 import React, { useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import lang from "../utils/languageConstants";
-import { API_OPTION } from "../utils/constants";
+import { buildOMDbURL } from "../utils/constants";
 import { addSearchResults } from "../utils/gptSlice";
+import { addMovieDetails } from "../utils/movieSlice";
+import { transformOMDbSearchResult } from "../utils/omdbHelpers";
 
 const GptSearchBar = () => {
   const lanKey = useSelector((store) => store.config.lang);
@@ -13,15 +15,57 @@ const GptSearchBar = () => {
     const searchQuery = searchText.current.value;
     if (!searchQuery) return;
     
-    const data = await fetch(
-      "https://api.themoviedb.org/3/search/movie?query=" +
-        searchQuery +
-        "&include_adult=false&language=en-US&page=1",
-      API_OPTION
-    );
-    const json = await data.json();
-    dispatch(addSearchResults(json.results));
+    try {
+      // OMDb search by title
+      const url = buildOMDbURL({ s: searchQuery, type: "movie" });
+      console.log("Searching OMDb:", url);
+      const response = await fetch(url);
+      const data = await response.json();
+      console.log("OMDb Search Response:", data);
+      
+      if (data.Response === "True" && data.Search) {
+        // Transform search results to match TMDB-like structure
+        const transformedResults = data.Search.map(transformOMDbSearchResult);
+        console.log("Transformed Results:", transformedResults);
+        
+        // Fetch full details for each movie to get complete information
+        const detailedMovies = await Promise.all(
+          transformedResults.slice(0, 10).map(async (movie) => {
+            try {
+              const detailUrl = buildOMDbURL({ i: movie.imdbID, plot: "short" });
+              const detailResponse = await fetch(detailUrl);
+              const detailData = await detailResponse.json();
+              
+              if (detailData.Response === "True") {
+                dispatch(addMovieDetails(detailData));
+                return {
+                  ...movie,
+                  overview: detailData.Plot !== "N/A" ? detailData.Plot : "",
+                  vote_average: detailData.imdbRating !== "N/A" ? parseFloat(detailData.imdbRating) : 0,
+                  release_date: detailData.Released !== "N/A" ? detailData.Released : detailData.Year,
+                };
+              }
+              return movie;
+            } catch (error) {
+              console.error("Error fetching movie details:", error);
+              return movie;
+            }
+          })
+        );
+        
+        console.log("Detailed Movies:", detailedMovies);
+        dispatch(addSearchResults(detailedMovies));
+      } else {
+        // No results found
+        console.log("No results found or error:", data.Error);
+        dispatch(addSearchResults([]));
+      }
+    } catch (error) {
+      console.error("Search error:", error);
+      dispatch(addSearchResults([]));
+    }
   };
+
   return (
     <div className="pt-[10%] pb-8 flex justify-center px-4">
       <form

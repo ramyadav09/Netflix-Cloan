@@ -3,9 +3,12 @@ import MovieReviewDetails from "./movieReviewDetails";
 import VideoPlayer from "./VideoPlayer";
 import { Link, useParams } from "react-router-dom";
 import useMovieReview from "../hooks/useMovieReview";
+import useImdbMovieDetails from "../hooks/useImdbMovieDetails";
+
 const MovieReviewCard = () => {
   const { resId } = useParams();
   useMovieReview(resId);
+  useImdbMovieDetails(resId);
   const [isTrailer, setIsTrailer] = useState(false);
 
   const handleTrailerPlaying = () => {
